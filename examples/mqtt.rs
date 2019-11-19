@@ -19,7 +19,6 @@ fn approved(id: &Id) -> bool {
 }
 
 fn server(c: Chan<(), Server>) {
-    loop {
 	let mut c = {
         	let (c, id) = c.recv();
         	if !approved(&id) {
@@ -28,63 +27,76 @@ fn server(c: Chan<(), Server>) {
         	}
         	c.sel1().enter()
     	};
-	
-	let (server_chan, client_chan) = session_channel();
-	
-	spawn(|| server(server_chan));
 
-	c.send(client_chan);
-
-    	server_request_test(server_chan);
-
-	c.close();
-    }
-}
-
-fn server_request_test(c: Chan<(), Server>){
-   	 let mut c = {
-        	let (c, id) = c.recv();
-        	if !approved(&id) {
-            		c.sel2().close();
-            		return;
+	let mut balance = 0;
+	loop {
+        	c = offer! {
+            		c,
+           		 Results => {
+				let (c, connected) = c.recv();
+				println!("Connected: {}", connected);
+				let (c, results) = c.send("test".to_string()).recv();
+				println!("Results: {}", results);
+				c.send("Complete".to_string()).zero();
+//                		let (c, server) = c.recv();
+//                		balance += server;
+//                		c.send(balance).zero()
+            		},
+            		Blank1 => {
+                		let (c, amt) = c.recv();
+                		if amt > balance {
+                    			c.sel2().zero()
+                		} else {
+                    			balance -= amt;
+                    			c.sel1().zero()
+                		}
+            		},
+            		Blank2 => {
+                		c.send(balance).zero()
+            		},
+            		Quit => {
+                		c.close();
+                		break
+            		}
         	}
-        	c.sel1().enter()
-    	};
-	
-	let (c, server) = c.send("Test?".to_string());
-	let (c, results) = c.recv();
-
-	println!("Results: {}", results);
-
-	c.zero().close();
+	}
 }
 
 fn client(c: Chan<(), Client>) {
-	let c = match c.send("New client".to_string()).offer() {
-		Left(c) => c.enter(),
-		Right(_) => panic!("New client: expected to be approved"),
-	};
-
-	let (c, new_chan) = c.recv();
-
-	client_send_test(new_chan);
-
-	c.close();
-}
-
-fn client_send_test(c: Chan<(), Client>){
-	let c = match c.send("Recognized client".to_string()).offer() {
+	let c = match c.send("Client".to_string()).offer() {
         	Left(c) => c.enter(),
-        	Right(_) => panic!("Recognized client: expected to be approved"),
+        	Right(_) => panic!("Client: expected to be approved"),
     	};
 
-	let (c, payload) = c.recv();
+	let (c, request) = c.sel1().send("Connected".to_string()).recv();
 
-	if payload == "Test?".to_string() {
-		c.send("coco".to_string()).zero().close();
-	}
-	
+	println!("Request: {}", request);
+
+	c.send("GTX 1060".to_string()).zero().skip3().close();
+
 }
+
+//fn withdraw_client(c: Chan<(), Client>) {
+//	let c = match c.send("Withdraw Client".to_string()).offer() {
+//        	Left(c) => c.enter(),
+//        	Right(_) => panic!("withdraw_client: expected to be approved"),
+//    	};
+//
+//	let (c, new_balance) = c.sel1().send(200).recv();
+//    	println!("deposit_client: new balance: {}", new_balance);
+//
+//    	match c.zero().sel2().sel1().send(100).offer() {
+//        	Left(c) => {
+//            		println!("withdraw_client: Successfully withdrew 100");
+//            		c.zero().skip3().close();
+//        	}
+//        	Right(c) => {
+//            		println!("withdraw_client: Could not withdraw. Depositing instead.");
+//            		c.zero().sel1().send(50).recv().0.zero().skip3().close();
+//        	}
+//    	}
+//}
+
 
 fn main() {
     let (server_chan, client_chan) = session_channel();
