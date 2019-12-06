@@ -89,8 +89,8 @@ fn main() {
     let (atm_chan, client_chan) = session_channel();
     spawn(|| atm(atm_chan));
     deposit_client(client_chan);
-
     let (atm_chan, client_chan) = session_channel();
+
     spawn(|| atm(atm_chan));
     withdraw_client(client_chan);
 }

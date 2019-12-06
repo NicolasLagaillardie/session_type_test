@@ -1,19 +1,15 @@
 [package]
-name = "session_types"
+name = "session_types_extension"
 version = "0.3.1"
-authors = [ "Philip Munksgaard <pmunksgaard@gmail.com>"
-          , "Thomas Bracht Laumann Jespersen <laumann.thomas@gmail.com>"
-          ]
+authors = [ "Nicolas Lagaillardie <lagaillardie.nicolas@live.fr>"]
 
 description = "An implementation of session types in Rust"
-repository = "https://github.com/Munksgaard/session-types"
-readme = "README.md"
-keywords = ["session", "types", "channels", "concurrency", "communication"]
 
 license = "MIT"
 
 [dependencies]
 crossbeam-channel = "0.3.3"
+nom = "3.2"
 
 [dev-dependencies]
 compiletest_rs = { version = "0.3.16", features = ["stable"] }

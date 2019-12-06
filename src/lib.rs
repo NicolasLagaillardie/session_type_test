@@ -62,6 +62,11 @@
 #![cfg_attr(feature = "cargo-clippy", allow(type_complexity))]
 extern crate crossbeam_channel;
 
+#[macro_use]
+extern crate nom;
+
+pub mod mpst;
+
 use std::{marker, mem, ptr};
 use std::thread::spawn;
 use std::marker::PhantomData;
@@ -81,7 +86,7 @@ pub struct Chan<E, P>(Sender<*mut u8>, Receiver<*mut u8>, PhantomData<(E, P)>);
 
 unsafe impl<E: marker::Send, P: marker::Send> marker::Send for Chan<E, P> {}
 
-unsafe fn write_chan<A: marker::Send + 'static, E, P>(&Chan(ref tx, _, _): &Chan<E, P>, x: A) {
+unsafe fn write_chan<Message: marker::Send + 'static, E, P>(&Chan(ref tx, _, _): &Chan<E, P>, x: Message) {
     tx.send(Box::into_raw(Box::new(x)) as *mut _).unwrap()
 }
 
@@ -203,11 +208,11 @@ impl<E, P> Chan<E, P> {
     }
 }
 
-impl<E, P, A: marker::Send + 'static> Chan<E, Send<A, P>> {
+impl<E, P, Message: marker::Send + 'static> Chan<E, Send<Message, P>> {
     /// Send a value of type `A` over the channel. Returns a channel with
     /// protocol `P`
     #[must_use]
-    pub fn send(self, v: A) -> Chan<E, P> {
+    pub fn send(self, v: Message) -> Chan<E, P> {
         unsafe {
             write_chan(&self, v);
             self.cast()
@@ -404,7 +409,6 @@ pub fn iselect<E, P, A>(chans: &Vec<Chan<E, Recv<A, P>>>) -> usize {
         }
 
         let id = sel.ready();
-
 
         id
     };
