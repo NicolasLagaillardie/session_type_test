@@ -135,7 +135,7 @@ impl Message {
     /// # Example
     ///
     /// ```
-    /// use session_types::mpst::Message;
+    /// use session_types_extension::mpst::Message;
     ///
     /// let _msg = Message::new("label"); // label()
     /// ```
@@ -152,7 +152,7 @@ impl Message {
     /// # Example
     ///
     /// ```
-    /// use session_types::mpst::Message;
+    /// use session_types_extension::mpst::Message;
     ///
     /// let msg = Message::new("label"); // label()
     /// let _msg_label = msg.label(); // "label"
@@ -167,7 +167,7 @@ impl Message {
     /// # Example
     ///
     /// ```
-    /// use session_types::mpst::Message;
+    /// use session_types_extension::mpst::Message;
     ///
     /// let _msg = Message::with_payload_type("label", "int"); // label(int)
     /// ```
@@ -184,8 +184,8 @@ impl Message {
     /// # Example
     ///
     /// ```
-    /// use session_types::mpst::Message;
-    /// use session_types::mpst::local;
+    /// use session_types_extension::mpst::Message;
+    /// use session_types_extension::mpst::local;
     ///
     /// let _msg = Message::with_payload_session("label", local::Type::end()); // label(end)
     /// ```
@@ -276,7 +276,7 @@ impl Role {
     /// # Example
     ///
     /// ```
-    /// use session_types::mpst::Role;
+    /// use session_types_extension::mpst::Role;
     ///
     /// let _alice = Role::new("Alice");
     /// ```
@@ -290,7 +290,7 @@ impl Role {
     /// # Example
     ///
     /// ```
-    /// use session_types::mpst::Role;
+    /// use session_types_extension::mpst::Role;
     ///
     /// let alice = Role::new("Alice");
     /// let _alice_name = alice.name();

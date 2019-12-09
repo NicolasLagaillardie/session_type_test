@@ -1,8 +1,8 @@
-extern crate session_types;
+extern crate session_types_extension;
 
-use session_types::mpst::*;
+use session_types_extension::mpst::*;
 
-use session_types::mpst::projection::project;
+use session_types_extension::mpst::projection::project;
 
 use std::rc::Rc;
 

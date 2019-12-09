@@ -1,8 +1,8 @@
 /// This is an implementation of an echo server.
 
 /// One process reads input and sends it to the other process, which outputs it.
-extern crate session_types;
-use session_types::*;
+extern crate session_types_extension;
+use session_types_extension::*;
 
 use std::thread::spawn;
 

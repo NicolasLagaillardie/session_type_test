@@ -1,6 +1,6 @@
 ////#![cfg_attr(feature = "cargo-clippy", allow(ptr_arg))]
-////extern crate session_types;
-////use session_types::*;
+////extern crate session_types_extension;
+////use session_types_extension::*;
 ////use std::thread::spawn;
 ////
 ////type Id = String;
@@ -87,9 +87,9 @@
 //
 //#![cfg_attr(feature = "cargo-clippy", allow(needless_pass_by_value))]
 //extern crate rand;
-//extern crate session_types;
+//extern crate session_types_extension;
 //
-//use session_types::*;
+//use session_types_extension::*;
 //use std::thread::spawn;
 //use rand::random;
 //

@@ -1,6 +1,6 @@
-extern crate session_types;
+extern crate session_types_extension;
 
-use session_types::*;
+use session_types_extension::*;
 
 // recv and assert a value, then close the channel
 macro_rules! recv_assert_eq_close(

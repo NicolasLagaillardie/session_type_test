@@ -1,6 +1,6 @@
-extern crate session_types;
+extern crate session_types_extension;
  
-use session_types::mpst::{global, local, Message, PayloadType, Role}; 
+use session_types_extension::mpst::{global, local, Message, PayloadType, Role}; 
 
 use std::rc::Rc;
 

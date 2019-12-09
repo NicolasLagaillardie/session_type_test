@@ -2,8 +2,8 @@
 // This is an implementation of the extended arithmetic server from
 // Vasconcelos-Gay-Ravara (2006) with some additional functionality
 
-extern crate session_types;
-use session_types::*;
+extern crate session_types_extension;
+use session_types_extension::*;
 
 use std::thread::spawn;
 

@@ -7,9 +7,9 @@
 // for more explanation.
 
 extern crate rand;
-extern crate session_types;
+extern crate session_types_extension;
 
-use session_types::*;
+use session_types_extension::*;
 
 use rand::{random, Rng};
 use rand::distributions::{Distribution, Standard};

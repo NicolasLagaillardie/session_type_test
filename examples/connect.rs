@@ -1,5 +1,5 @@
-extern crate session_types;
-use session_types::*;
+extern crate session_types_extension;
+use session_types_extension::*;
 
 fn server(c: Chan<(), Eps>) {
     c.close()

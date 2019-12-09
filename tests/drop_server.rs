@@ -1,6 +1,6 @@
-extern crate session_types;
+extern crate session_types_extension;
 
-use session_types::*;
+use session_types_extension::*;
 
 fn client(c: Chan<(), Send<(), Eps>>) {
     c.send(()).close();

@@ -1,4 +1,4 @@
-//! `session_types`
+//! `session_types_extension`
 //!
 //! This is an implementation of *session types* in Rust.
 //!
@@ -26,8 +26,8 @@
 //! `Chan<(), Send<i64, Recv<bool, Eps>>>`, and the full program could look like this:
 //!
 //! ```
-//! extern crate session_types;
-//! use session_types::*;
+//! extern crate session_types_extension;
+//! use session_types_extension::*;
 //!
 //! type Server = Recv<i64, Send<bool, Eps>>;
 //! type Client = Send<i64, Recv<bool, Eps>>;
@@ -73,9 +73,7 @@ use std::marker::PhantomData;
 
 use std::collections::HashMap;
 
-use crossbeam_channel::{unbounded, Receiver, Sender};
-
-use crossbeam_channel::Select;
+use crossbeam_channel::{unbounded, Receiver, Sender, Select};
 
 pub use Branch::*;
 
@@ -516,8 +514,8 @@ mod private {
 /// we can use the `offer!` macro as follows:
 ///
 /// ```rust
-/// extern crate session_types;
-/// use session_types::*;
+/// extern crate session_types_extension;
+/// use session_types_extension::*;
 /// use std::thread::spawn;
 ///
 /// fn srv(c: Chan<(), Offer<Recv<u64, Eps>, Offer<Recv<String, Eps>, Eps>>>) {
@@ -592,8 +590,8 @@ macro_rules! try_offer {
 /// # Examples
 ///
 /// ```rust
-/// extern crate session_types;
-/// use session_types::*;
+/// extern crate session_types_extension;
+/// use session_types_extension::*;
 /// use std::thread::spawn;
 ///
 /// fn send_str(c: Chan<(), Send<String, Eps>>) {
@@ -628,11 +626,11 @@ macro_rules! try_offer {
 /// ```
 ///
 /// ```rust
-/// extern crate session_types;
+/// extern crate session_types_extension;
 /// extern crate rand;
 ///
 /// use std::thread::spawn;
-/// use session_types::*;
+/// use session_types_extension::*;
 ///
 /// type Igo = Choose<Send<String, Eps>, Send<u64, Eps>>;
 /// type Ugo = Offer<Recv<String, Eps>, Recv<u64, Eps>>;

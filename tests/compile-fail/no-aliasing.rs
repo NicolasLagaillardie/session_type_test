@@ -1,8 +1,8 @@
-extern crate session_types;
+extern crate session_types_extension;
 
 use std::thread::spawn;
 
-use session_types::*;
+use session_types_extension::*;
 
 fn srv(c: Chan<(), Recv<u8, Eps>>) {
     let (c, _) = c.recv();

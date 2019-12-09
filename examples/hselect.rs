@@ -1,6 +1,6 @@
-extern crate session_types;
+extern crate session_types_extension;
 
-use session_types::*;
+use session_types_extension::*;
 
 fn main() {
     let (tcs, rcs) = session_channel();

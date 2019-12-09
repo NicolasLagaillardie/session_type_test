@@ -1,8 +1,8 @@
-extern crate session_types;
+extern crate session_types_extension;
 
 use std::thread::spawn;
 
-use session_types::*;
+use session_types_extension::*;
 
 type Proto = Send<u8, Eps>;
 
