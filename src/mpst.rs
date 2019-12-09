@@ -199,6 +199,7 @@ impl Message {
 }
 
 impl Clone for Message {
+    /// Clone a Message
     fn clone(&self) -> Message {
         match self.payload {
             PayloadType::BaseType(ref t) => Message {

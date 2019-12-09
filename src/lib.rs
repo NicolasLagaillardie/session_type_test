@@ -67,6 +67,8 @@ extern crate nom;
 
 pub mod mpst;
 
+pub mod mpst_improved;
+
 use std::{marker, mem, ptr};
 use std::thread::spawn;
 use std::marker::PhantomData;
