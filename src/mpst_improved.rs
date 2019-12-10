@@ -1,5 +1,3 @@
-use std::{marker, mem, ptr};
-use std::thread::spawn;
 use std::marker::PhantomData;
 
 use std::cmp::Eq;
@@ -72,7 +70,7 @@ impl<A> ToString for Message<A> {
 	///
 	fn to_string(&self) -> String {
 		let payload = match self.payload {
-			PayloadType::Data(ref t) => String::from("PhantomData"),
+			PayloadType::Data(ref _t) => String::from("PhantomData"),
 			PayloadType::Empty => String::from("Empty data"),
 		};
 
